@@ -1,0 +1,65 @@
+.language-menu {
+  position: absolute;
+  top: 100%;
+  right: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  min-width: 150px;
+  z-index: 1000;
+}
+
+.language-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.language-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.language-btn:hover {
+  background: rgba(255, 107, 107, 0.05);
+}
+
+.language-btn.active {
+  color: var(--color-primary);
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.check-icon {
+  color: var(--color-primary);
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .language-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    margin: 0;
+    border-radius: 20px 20px 0 0;
+    padding: 1rem;
+  }
+
+  .language-btn {
+    padding: 1rem;
+  }
+} 

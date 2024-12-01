@@ -1,0 +1,59 @@
+{
+  "nav": {
+    "home": "Home",
+    "books": "Books",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "about": {
+    "title": "About the Author",
+    "subtitle": "Crafting Stories That Echo Beyond Pages",
+    "headerDesc": "Award-winning author exploring the intricate landscapes of human relationships through contemporary literary fiction",
+    "background": {
+      "label": "Background",
+      "text1": "Based in [City], I've spent the last decade weaving narratives that explore the complexities of modern relationships, cultural identity, and the search for belonging in an increasingly connected world.",
+      "text2": "My work has been recognized by [Awards/Recognition], and my stories have appeared in [Publications]. I hold an MFA in Creative Writing from [University]."
+    },
+    "stats": {
+      "novels": "Published Novels",
+      "awards": "Literary Awards",
+      "stories": "Short Stories"
+    },
+    "journey": {
+      "title": "Writing Journey",
+      "subtitle": "From First Draft to Final Page",
+      "process": {
+        "title": "Creative Process",
+        "desc": "My stories often begin as small observations - a conversation overheard in a café, a forgotten photograph, or a memory that refuses to fade. Through careful crafting and numerous revisions, these seeds grow into fully realized narratives.",
+        "link": "Read about my process"
+      },
+      "influences": {
+        "title": "Literary Influences",
+        "desc": "I draw inspiration from a diverse range of voices in contemporary literature, from the intricate character studies of Alice Munro to the bold narratives of Chimamanda Ngozi Adichie.",
+        "link": "Explore influences"
+      },
+      "teaching": {
+        "title": "Teaching & Workshops",
+        "desc": "Beyond writing, I'm passionate about nurturing new voices in literature. I conduct writing workshops and mentor emerging authors through various programs.",
+        "link": "View workshops"
+      }
+    },
+    "recognition": {
+      "title": "Literary Recognition & Press",
+      "quotes": {
+        "quote1": {
+          "text": "A masterful storyteller whose work resonates with emotional depth and cultural insight.",
+          "author": "— Literary Review"
+        },
+        "quote2": {
+          "text": "One of the most compelling new voices in contemporary fiction.",
+          "author": "— The Daily Read"
+        },
+        "quote3": {
+          "text": "Stories that linger in the mind long after the last page.",
+          "author": "— Arts Weekly"
+        }
+      }
+    }
+  }
+} 

@@ -1,38 +1,132 @@
-.App {
-  text-align: center;
+:root {
+  /* Color Scheme - Deeper Red Theme */
+  --primary-color: #E53E3E;    /* Stronger red */
+  --secondary-color: #F56565;  /* Vibrant coral */
+  --accent-color: #FC8181;     /* Soft coral */
+  --text-primary: #2D2424;     /* Deep warm brown */
+  --text-secondary: #5C4444;   /* Rich warm gray */
+  --background-light: #FFF0F0; /* Warmer light pink */
+  --background-white: #FFFFFF;
+  --border-color: #FFDADA;     /* Deeper pink border */
+  
+  /* Shadows with deeper tint */
+  --shadow-sm: 0 1px 2px rgba(229, 62, 62, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(229, 62, 62, 0.15);
+  --shadow-lg: 0 10px 15px -3px rgba(229, 62, 62, 0.2);
+  
+  /* Transitions */
+  --transition: all 0.3s ease;
+  
+  /* Layout */
+  --header-height: 64px;
+  --sidebar-width: 250px;
+  --content-max-width: 1280px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-primary);
+  background: var(--background-light);
+  line-height: 1.5;
 }
 
-.App-header {
-  background-color: #282c34;
+.app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.main-content {
+  flex: 1;
+  padding-top: var(--header-height);
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Global button styles */
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  outline: none;
+}
+
+/* Global link styles */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--secondary-color);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: var(--transition);
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, 
+    rgba(229, 62, 62, 0.15) 0%,
+    rgba(245, 101, 101, 0.15) 50%,
+    rgba(252, 129, 129, 0.15) 100%
+  );
+}
+
+/* Text gradients */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card styles */
+.card {
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  background: var(--background-white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Input styles */
+.input {
+  border-radius: 12px;
+  border: 2px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  transition: var(--transition);
+  background: var(--background-white);
+}
+
+.input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.15);
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: var(--transition);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(229, 62, 62, 0.2);
 }

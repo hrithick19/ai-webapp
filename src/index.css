@@ -1,3 +1,71 @@
+/* First, import the fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* ... other CSS variables ... */
+  
+  /* Font families */
+  --font-primary-en: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-primary-ta: 'Noto Sans Tamil', system-ui, -apple-system, sans-serif;
+  --font-logo-ta: 'Catamaran', var(--font-primary-ta);
+
+  /* Responsive Typography and Spacing Adjustments */
+  --base-font-size-mobile: 14px;
+  --base-font-size-tablet: 15px;
+  --base-font-size-desktop: 16px;
+  
+  /* Spacing scale */
+  --space-unit: 0.25rem;
+  --space-xs: calc(var(--space-unit) * 2);  /* 0.5rem */
+  --space-sm: calc(var(--space-unit) * 4);  /* 1rem */
+  --space-md: calc(var(--space-unit) * 6);  /* 1.5rem */
+  --space-lg: calc(var(--space-unit) * 8);  /* 2rem */
+  --space-xl: calc(var(--space-unit) * 12); /* 3rem */
+
+  /* Logo specific variables */
+  --logo-font-size: 1.75rem;
+  --logo-font-weight: 800;
+  --logo-letter-spacing: -0.02em;
+}
+
+/* Base styles */
+html[lang='ta'] body {
+  font-family: var(--font-primary-ta);
+}
+
+html[lang='en'] body {
+  font-family: var(--font-primary-en);
+}
+
+/* Specific overrides for Tamil text */
+.ta {
+  font-family: var(--font-primary-ta);
+}
+
+/* Adjust line heights for Tamil text */
+html[lang='ta'] h1,
+html[lang='ta'] h2,
+html[lang='ta'] h3 {
+  line-height: 1.4;
+}
+
+html[lang='ta'] p {
+  line-height: 1.8;
+}
+
+/* Adjust font sizes for Tamil to improve readability */
+html[lang='ta'] .books-page-hero-title,
+html[lang='ta'] .works-page-hero-title {
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+}
+
+html[lang='ta'] .books-page-featured-title,
+html[lang='ta'] .works-page-featured-title {
+  font-size: clamp(1.375rem, 2.75vw, 1.875rem);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +78,342 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Tamil Typography Adjustments */
+html[lang='ta'] {
+  --line-height-heading: 1.4;
+  --line-height-body: 1.8;
+  --letter-spacing-heading: -0.01em;
+  --letter-spacing-body: 0.01em;
+}
+
+html[lang='ta'] h1,
+html[lang='ta'] h2,
+html[lang='ta'] h3,
+html[lang='ta'] h4,
+html[lang='ta'] h5,
+html[lang='ta'] h6 {
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+}
+
+html[lang='ta'] p,
+html[lang='ta'] li,
+html[lang='ta'] span {
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+}
+
+/* Tamil-specific size adjustments */
+html[lang='ta'] .hero-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+html[lang='ta'] .section-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+html[lang='ta'] .card-title {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+}
+
+/* Tamil text in buttons */
+html[lang='ta'] button,
+html[lang='ta'] .button {
+  letter-spacing: 0.02em;
+}
+
+/* Tamil number formatting */
+html[lang='ta'] .number {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tamil Typography Adjustments - Component Specific */
+html[lang='ta'] {
+  /* Base variables */
+  --ta-font-scale: 1.1;  /* Slightly larger for Tamil */
+  --ta-line-height-tight: 1.4;
+  --ta-line-height-normal: 1.6;
+  --ta-line-height-relaxed: 1.8;
+  --ta-letter-spacing-tight: -0.01em;
+  --ta-letter-spacing-normal: 0.01em;
+  --ta-letter-spacing-wide: 0.02em;
+}
+
+/* Navigation */
+html[lang='ta'] .nav-link {
+  font-size: calc(1rem * var(--ta-font-scale));
+  letter-spacing: var(--ta-letter-spacing-normal);
+}
+
+/* Hero Section */
+html[lang='ta'] .hero-title {
+  line-height: var(--ta-line-height-tight);
+  letter-spacing: var(--ta-letter-spacing-tight);
+}
+
+html[lang='ta'] .hero-subtitle {
+  line-height: var(--ta-line-height-relaxed);
+  letter-spacing: var(--ta-letter-spacing-normal);
+}
+
+/* Books Page */
+html[lang='ta'] .books-page-featured-title {
+  font-size: calc(1.75rem * var(--ta-font-scale));
+  line-height: var(--ta-line-height-tight);
+}
+
+html[lang='ta'] .books-page-card-title {
+  font-size: calc(1.125rem * var(--ta-font-scale));
+  line-height: var(--ta-line-height-normal);
+}
+
+html[lang='ta'] .books-page-description {
+  line-height: var(--ta-line-height-relaxed);
+  letter-spacing: var(--ta-letter-spacing-normal);
+}
+
+/* Works Page */
+html[lang='ta'] .works-featured-title {
+  font-size: calc(1.5rem * var(--ta-font-scale));
+  line-height: var(--ta-line-height-tight);
+}
+
+html[lang='ta'] .works-card-title {
+  font-size: calc(1.25rem * var(--ta-font-scale));
+  line-height: var(--ta-line-height-normal);
+}
+
+html[lang='ta'] .category-tag {
+  font-size: calc(0.875rem * var(--ta-font-scale));
+  letter-spacing: var(--ta-letter-spacing-wide);
+}
+
+/* About Page */
+html[lang='ta'] .about-page-bio-text {
+  line-height: var(--ta-line-height-relaxed);
+  letter-spacing: var(--ta-letter-spacing-normal);
+}
+
+html[lang='ta'] .about-page-award-title {
+  font-size: calc(1.25rem * var(--ta-font-scale));
+  line-height: var(--ta-line-height-tight);
+}
+
+/* Buttons and Interactive Elements */
+html[lang='ta'] .primary-button,
+html[lang='ta'] .outline-button,
+html[lang='ta'] .nav-lang-toggle {
+  font-size: calc(0.875rem * var(--ta-font-scale));
+  letter-spacing: var(--ta-letter-spacing-wide);
+}
+
+/* Meta Information */
+html[lang='ta'] .meta-text,
+html[lang='ta'] .date-text,
+html[lang='ta'] .reading-time {
+  font-size: calc(0.875rem * var(--ta-font-scale));
+  letter-spacing: var(--ta-letter-spacing-normal);
+}
+
+/* Store Links */
+html[lang='ta'] .store-name {
+  font-size: calc(0.9375rem * var(--ta-font-scale));
+  letter-spacing: var(--ta-letter-spacing-normal);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  html[lang='ta'] {
+    --ta-font-scale: 1.05; /* Slightly smaller scale for mobile */
+  }
+  
+  html[lang='ta'] .hero-title {
+    font-size: calc(2rem * var(--ta-font-scale));
+  }
+  
+  html[lang='ta'] .books-page-featured-title,
+  html[lang='ta'] .works-featured-title {
+    font-size: calc(1.5rem * var(--ta-font-scale));
+  }
+}
+
+/* Tablet Adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  html[lang='ta'] {
+    --ta-font-scale: 1.075; /* Medium scale for tablets */
+  }
+}
+
+/* Device-specific adjustments */
+/* Mobile - Portrait (< 480px) */
+@media screen and (max-width: 479px) {
+  html {
+    font-size: var(--base-font-size-mobile);
+  }
+
+  html[lang='ta'] {
+    --ta-font-scale: 1.05;
+  }
+
+  .hero-title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 3.5vw, 1.75rem);
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  /* Adjust spacing */
+  .section-spacing {
+    padding: var(--space-md) var(--space-sm);
+  }
+}
+
+/* Mobile - Landscape (480px - 767px) */
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  html {
+    font-size: var(--base-font-size-mobile);
+  }
+
+  html[lang='ta'] {
+    --ta-font-scale: 1.05;
+  }
+
+  /* Landscape-specific adjustments */
+  .hero-section {
+    min-height: 80vh;
+  }
+}
+
+/* Tablet - Portrait (768px - 1023px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  html {
+    font-size: var(--base-font-size-tablet);
+  }
+
+  html[lang='ta'] {
+    --ta-font-scale: 1.075;
+  }
+
+  .hero-title {
+    font-size: clamp(2.25rem, 4.5vw, 3rem);
+  }
+}
+
+/* Tablet - Landscape (1024px - 1279px) */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  html {
+    font-size: var(--base-font-size-tablet);
+  }
+
+  html[lang='ta'] {
+    --ta-font-scale: 1.075;
+  }
+}
+
+/* Desktop (≥ 1280px) */
+@media screen and (min-width: 1280px) {
+  html {
+    font-size: var(--base-font-size-desktop);
+  }
+
+  html[lang='ta'] {
+    --ta-font-scale: 1.1;
+  }
+}
+
+/* High-DPI Screens */
+@media screen and (min-resolution: 192dpi) {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Orientation-specific adjustments */
+@media screen and (orientation: landscape) and (max-height: 600px) {
+  .hero-section {
+    min-height: auto;
+    padding: var(--space-lg) 0;
+  }
+}
+
+/* Tamil-specific responsive adjustments */
+html[lang='ta'] {
+  /* Adjust line heights for different screen sizes */
+  @media screen and (max-width: 767px) {
+    --ta-line-height-heading: 1.3;
+    --ta-line-height-body: 1.6;
+  }
+
+  @media screen and (min-width: 768px) {
+    --ta-line-height-heading: 1.4;
+    --ta-line-height-body: 1.8;
+  }
+
+  /* Font size adjustments for Tamil text */
+  @media screen and (max-width: 479px) {
+    .hero-title {
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+    }
+    
+    .section-title {
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+    }
+  }
+}
+
+/* Print styles */
+@media print {
+  html {
+    font-size: 12pt;
+  }
+
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  html[lang='ta'] {
+    --ta-letter-spacing-tight: 0;
+    --ta-letter-spacing-normal: 0.02em;
+    --ta-letter-spacing-wide: 0.03em;
+  }
+}
+
+/* Add specific styles for the logo */
+.logo-text {
+  font-family: var(--font-logo-ta);
+  font-size: var(--logo-font-size);
+  font-weight: var(--logo-font-weight);
+  letter-spacing: var(--logo-letter-spacing);
+}
+
+html[lang='ta'] .logo-text {
+  font-size: calc(var(--logo-font-size) * 1.1);
 }
