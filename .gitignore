@@ -23,7 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Virtual Environment
-venv/
+backend/venv/*
+venv*/
 env/
 ENV/
 .env/
@@ -67,3 +68,9 @@ media/
 # OS
 .DS_Store
 Thumbs.db
+
+*.pyc
+__pycache__/
+staticfiles/
+.env
+db.sqlite3
