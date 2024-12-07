@@ -12,7 +12,7 @@ typing_extensions
 
 # CKEditor Related
 django-ckeditor==6.5.1
-Pillow==10.0.0
+Pillow==9.5.0
 
 # Deployment Requirements
 gunicorn==21.2.0

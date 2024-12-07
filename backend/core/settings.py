@@ -12,9 +12,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Add the backend directory to Python path
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,6 +41,7 @@ else:
         'localhost',
         'api.aharathi.in',  # Replace with your actual domain
         'www.aharathi.in',  # Include www subdomain if needed
+        'possible-sylvia-hrithick-23503e7d.koyeb.app'
     ]
 
 

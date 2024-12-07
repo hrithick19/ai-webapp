@@ -1,1 +1,1 @@
-web: source venv/bin/activate && cd backend && python -m gunicorn core.wsgi:application --bind 0.0.0.0:$PORT 
+web: cd backend && PYTHONPATH=.:$PYTHONPATH gunicorn core.wsgi:application --bind 0.0.0.0:$PORT 

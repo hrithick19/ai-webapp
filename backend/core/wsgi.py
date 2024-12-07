@@ -8,7 +8,15 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 """
 
 import os
-from django.core.wsgi import get_wsgi_application
+import sys
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
+print("Current working directory:", os.getcwd())
+print("Python path:", sys.path)
+
+# Add the project directory to the Python path
+sys.path.append('/workspace/backend')  # Adjust this path as necessary
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')  # Adjust according to your project structure
+
+from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
