@@ -38,14 +38,31 @@ function Home() {
     fetchHomeData();
   }, [t]);
 
+  // Prepare structured data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Aharathi",
+    "url": "https://aharathi.com",
+    "description": t('home.description'),
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://aharathi.com?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <div className="home-container">
       <Helmet>
         <title>{t('home.title')}</title>
         <meta name="description" content={t('home.description')} />
         <meta name="keywords" content="Aharathi, அகராதி, Tamil literature, featured works, latest books" />
-        <meta name="author" content="Your Name" />
+        <meta name="author" content="Aharathi, அகராதி" />
         <link rel="canonical" href="https://yourwebsite.com/home" />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
 
       <Hero />

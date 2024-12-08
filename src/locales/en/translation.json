@@ -55,5 +55,30 @@
         }
       }
     }
+  },
+  "home": {
+    "title": "Welcome to Aharathi",
+    "description": "Aharathi is a platform dedicated to Tamil literature, featuring works and books from various authors.",
+    "featured": {
+      "sectionLabel": "Featured Works",
+      "title": "Explore Our Featured Works",
+      "description": "Discover the best works curated for you.",
+      "readMore": "Read More"
+    },
+    "latestBooks": {
+      "sectionLabel": "Latest Books",
+      "title": "Check Out Our Latest Books",
+      "description": "Stay updated with the latest releases in Tamil literature.",
+      "viewDetails": "View Details",
+      "pages": "pages"
+    },
+    "errors": {
+      "failedToLoad": "Failed to load data. Please try again.",
+      "tryAgain": "Try Again"
+    },
+    "common": {
+      "minuteRead": "minute read",
+      "loading": "Loading..."
+    }
   }
 } 
