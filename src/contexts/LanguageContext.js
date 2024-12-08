@@ -172,7 +172,7 @@ const translations = {
     },
     home: {
       hero: {
-        greeting: "எரவேற்கிறேன்",
+        greeting: " ",
         title: "எனது இலக்கிய வெளி",
         subtitle: "சொற்களால் சிந்தனைகளையும் கதைகளையும் ஆராய்தல்",
         cta: "படைப்புகளை காண"

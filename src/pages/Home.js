@@ -47,7 +47,7 @@ function Home() {
     "description": t('home.description'),
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://aharathi.com?q={search_term_string}",
+      "target": "https://aharathi.in?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };
@@ -55,11 +55,11 @@ function Home() {
   return (
     <div className="home-container">
       <Helmet>
-        <title>{t('home.title')}</title>
+        <title>அகராதி | Aharathi</title>
         <meta name="description" content={t('home.description')} />
         <meta name="keywords" content="Aharathi, அகராதி, Tamil literature, featured works, latest books" />
         <meta name="author" content="Aharathi, அகராதி" />
-        <link rel="canonical" href="https://yourwebsite.com/home" />
+        <link rel="canonical" href="https://aharathi.in/" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
