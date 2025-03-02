@@ -45,6 +45,11 @@ function Works() {
     ? works 
     : works.filter(work => work.category === selectedCategory);
 
+  // Include the featured work in the filtered works if it exists and is not already included
+  if (featuredWork && selectedCategory === 'all' && !filteredWorks.some(work => work.id === featuredWork.id)) {
+    filteredWorks.unshift(featuredWork); // Add featured work to the beginning of the array
+  }
+
   if (isLoading) {
     return (
       <div className="works-loading-state">
@@ -109,7 +114,7 @@ function Works() {
                 {featuredWork.subtitle && (
                   <p className="works-featured-subtitle">{featuredWork.subtitle}</p>
                 )}
-                <p className="works-featured-excerpt">{featuredWork.excerpt}</p>
+                <p className="works-featured-excerpt" dangerouslySetInnerHTML={{ __html: featuredWork.excerpt }} />
                 <Link 
                   to={`/works/${featuredWork.id}`}
                   className="works-featured-link"
@@ -198,7 +203,7 @@ function Works() {
                         )}
                       </div>
                       <h3 className="works-card-title">{work.title}</h3>
-                      <p className="works-card-excerpt">{work.excerpt}</p>
+                      <p className="works-card-excerpt" dangerouslySetInnerHTML={{ __html: work.excerpt }} />
                       <div className="works-card-footer">
                         <time dateTime={work.publication_date}>
                           {formatDate(work.publication_date)}
