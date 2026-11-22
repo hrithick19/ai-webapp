@@ -14,8 +14,15 @@ from pathlib import Path
 import os
 import sys
 
+import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load local development variables; deployed environment variables take precedence.
+load_dotenv(BASE_DIR.parent / '.env')
 
 # Add the backend directory to Python path
 if str(BASE_DIR) not in sys.path:
@@ -25,23 +32,25 @@ if str(BASE_DIR) not in sys.path:
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-%f1r_7*xar8bsp817u72i3^$jz#@**4kvvaxu06&j1w2v$z@a8')
-#SECRET_KEY = 'django-insecure-%f1r_7*xar8bsp817u72i3^$jz#@**4kvvaxu06&j1w2v$z@a8'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-
-ALLOWED_HOSTS = []
+# SECURITY WARNING: do not use the development fallback in production.
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+if not SECRET_KEY:
+    if DEBUG:
+        SECRET_KEY = 'django-insecure-local-development-only'
+    else:
+        raise ImproperlyConfigured('SECRET_KEY must be set when DEBUG is False.')
 
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
     ALLOWED_HOSTS = [
-        'localhost',
-        'api.aharathi.in',  # Replace with your actual domain
-        'www.aharathi.in',  # Include www subdomain if needed
-        'possible-sylvia-hrithick-23503e7d.koyeb.app'
+        host.strip()
+        for host in os.environ.get(
+            'ALLOWED_HOSTS',
+            'localhost,api.aharathi.in,www.aharathi.in,possible-sylvia-hrithick-23503e7d.koyeb.app',
+        ).split(',')
+        if host.strip()
     ]
 
 
@@ -55,6 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'storages',
     'corsheaders',
     'ckeditor',
     'ckeditor_uploader',
@@ -94,10 +104,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# Use SQLite for collectstatic, Neon/other DATABASE_URL for runtime, and the
+# legacy DB_* variables for existing PostgreSQL deployments.
+DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
+DB_REQUIRED_SETTINGS = {
+    'DB_NAME': os.environ.get('DB_NAME', '').strip(),
+    'DB_USER': os.environ.get('DB_USER', '').strip(),
+    'DB_PASSWORD': os.environ.get('DB_PASSWORD', '').strip(),
+    'DB_HOST': os.environ.get('DB_HOST', '').strip(),
+}
 
-# Use SQLite for collectstatic, PostgreSQL for runtime
 if os.environ.get('COLLECTING_STATIC') == '1':
     DATABASES = {
         'default': {
@@ -105,17 +121,45 @@ if os.environ.get('COLLECTING_STATIC') == '1':
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else:
+elif DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=0,
+            ssl_require=not DEBUG,
+        )
+    }
+elif all(DB_REQUIRED_SETTINGS.values()):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME'),
-            'USER': os.environ.get('DB_USER'),
-            'PASSWORD': os.environ.get('DB_PASSWORD'),
-            'HOST': os.environ.get('DB_HOST'),
+            'NAME': DB_REQUIRED_SETTINGS['DB_NAME'],
+            'USER': DB_REQUIRED_SETTINGS['DB_USER'],
+            'PASSWORD': DB_REQUIRED_SETTINGS['DB_PASSWORD'],
+            'HOST': DB_REQUIRED_SETTINGS['DB_HOST'],
             'PORT': os.environ.get('DB_PORT', '5432'),
+            'CONN_MAX_AGE': 0,
         }
     }
+elif any(DB_REQUIRED_SETTINGS.values()):
+    missing_db_settings = [
+        name for name, value in DB_REQUIRED_SETTINGS.items() if not value
+    ]
+    raise ImproperlyConfigured(
+        'PostgreSQL configuration is incomplete. Set DATABASE_URL or: '
+        + ', '.join(missing_db_settings)
+    )
+elif DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    raise ImproperlyConfigured(
+        'Set DATABASE_URL or the DB_NAME, DB_USER, DB_PASSWORD, and DB_HOST settings.'
+    )
 
 
 # Password validation
@@ -154,7 +198,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Static and media storage backends are defined in STORAGES below.
 
 # Create static files directory if it doesn't exist
 STATICFILES_DIRS = [
@@ -170,8 +214,12 @@ os.makedirs(os.path.join(BASE_DIR, 'static'), exist_ok=True)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React app address
-    "https://www.aharathi.in",  # React app address
+    origin.strip()
+    for origin in os.environ.get(
+        'CORS_ALLOWED_ORIGINS',
+        'http://localhost:3000,https://aharathi.in,https://www.aharathi.in,https://ai-webapp-liard.vercel.app',
+    ).split(',')
+    if origin.strip()
 ]
 
 REST_FRAMEWORK = {
@@ -201,11 +249,70 @@ CKEDITOR_CONFIGS = {
 CKEDITOR_UPLOAD_PATH = 'uploads/ckeditor/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 
-# Media files configuration (if not already set)
+# Media storage. Leave the R2 variables unset to use local filesystem storage.
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CORS_ALLOW_ALL_ORIGINS = True
+R2_ACCOUNT_ID = os.environ.get('R2_ACCOUNT_ID', '').strip()
+R2_ACCESS_KEY_ID = os.environ.get('R2_ACCESS_KEY_ID', '').strip()
+R2_SECRET_ACCESS_KEY = os.environ.get('R2_SECRET_ACCESS_KEY', '').strip()
+R2_BUCKET_NAME = os.environ.get('R2_BUCKET_NAME', '').strip()
+R2_PUBLIC_DOMAIN = (
+    os.environ.get('R2_PUBLIC_DOMAIN', '')
+    .strip()
+    .removeprefix('https://')
+    .removeprefix('http://')
+    .strip('/')
+)
+
+R2_REQUIRED_SETTINGS = {
+    'R2_ACCOUNT_ID': R2_ACCOUNT_ID,
+    'R2_ACCESS_KEY_ID': R2_ACCESS_KEY_ID,
+    'R2_SECRET_ACCESS_KEY': R2_SECRET_ACCESS_KEY,
+    'R2_BUCKET_NAME': R2_BUCKET_NAME,
+}
+R2_CONFIGURED = all(R2_REQUIRED_SETTINGS.values())
+
+if (any(R2_REQUIRED_SETTINGS.values()) or R2_PUBLIC_DOMAIN) and not R2_CONFIGURED:
+    missing_r2_settings = [
+        name for name, value in R2_REQUIRED_SETTINGS.items() if not value
+    ]
+    raise ImproperlyConfigured(
+        'Cloudflare R2 configuration is incomplete. Set: '
+        + ', '.join(missing_r2_settings)
+    )
+
+R2_STORAGE_OPTIONS = {}
+if R2_CONFIGURED:
+    R2_STORAGE_OPTIONS = {
+        'access_key': R2_ACCESS_KEY_ID,
+        'secret_key': R2_SECRET_ACCESS_KEY,
+        'bucket_name': R2_BUCKET_NAME,
+        'endpoint_url': f'https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com',
+        'region_name': 'auto',
+        'signature_version': 's3v4',
+        'addressing_style': 'path',
+        'default_acl': None,
+        'file_overwrite': False,
+        'querystring_auth': not bool(R2_PUBLIC_DOMAIN),
+    }
+    if R2_PUBLIC_DOMAIN:
+        # Configure this hostname as a public custom domain for the R2 bucket.
+        R2_STORAGE_OPTIONS['custom_domain'] = R2_PUBLIC_DOMAIN
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'storages.backends.s3.S3Storage',
+        'OPTIONS': R2_STORAGE_OPTIONS,
+    } if R2_CONFIGURED else {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+    },
+}
+
+CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOW_METHODS = [
     "GET",
