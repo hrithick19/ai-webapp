@@ -21,6 +21,32 @@
   --header-height: 64px;
   --sidebar-width: 250px;
   --content-max-width: 1280px;
+
+  /* Fluid size scale (compact on phones, unchanged feel on desktop) */
+  --page-gutter: clamp(1rem, 4vw, 1.5rem);
+  --space-section: clamp(2rem, 6vw, 3.5rem);
+  --space-card: clamp(1rem, 3.5vw, 1.5rem);
+  --fs-display: clamp(1.875rem, 1.25rem + 2.8vw, 2.75rem);
+  --fs-h2: clamp(1.375rem, 1.1rem + 1.2vw, 1.875rem);
+  --fs-h3: clamp(1.125rem, 1.02rem + 0.5vw, 1.25rem);
+  --fs-lead: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --logo-font-size: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 56px;
+    --logo-font-size: 1.25rem;
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img {
+  max-width: 100%;
 }
 
 * {

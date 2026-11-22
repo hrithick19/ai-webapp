@@ -1,14 +1,14 @@
 .about-page-container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 var(--page-gutter);
 }
 
 .about-page-hero {
-  padding: 3rem 0;
+  padding: clamp(1.5rem, 5vw, 2.5rem) 0;
   text-align: center;
   background: linear-gradient(to bottom, #fff, #fef2f2);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .about-page-hero-content {
@@ -18,26 +18,26 @@
 
 .about-page-label {
   display: inline-block;
-  padding: 0.5rem 1rem;
+  padding: 0.375rem 0.875rem;
   background: rgba(220, 38, 38, 0.1);
   color: #dc2626;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   border-radius: 9999px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .about-page-title {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: var(--fs-display);
   font-weight: 800;
   color: #111827;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
 }
 
 .about-page-subtitle {
-  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-size: var(--fs-lead);
   color: #4b5563;
   line-height: 1.6;
   max-width: 600px;
@@ -46,37 +46,37 @@
 
 .about-page-content {
   display: grid;
-  gap: 3rem;
-  padding: 2rem 0;
+  gap: clamp(1.5rem, 5vw, 2rem);
+  padding: 1rem 0 1.5rem;
 }
 
 .about-page-bio {
   background: white;
-  padding: 2rem;
+  padding: var(--space-card);
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .about-page-bio-text {
   color: #4b5563;
-  font-size: 1.125rem;
+  font-size: var(--fs-lead);
   line-height: 1.8;
 }
 
 .about-page-bio-text p + p {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .about-page-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: clamp(0.75rem, 3vw, 1.25rem);
+  margin: 1rem 0;
 }
 
 .about-page-stat-card {
   background: white;
-  padding: 2rem;
+  padding: var(--space-card);
   border-radius: 1rem;
   text-align: center;
   border: 1px solid rgba(220, 38, 38, 0.1);
@@ -90,43 +90,48 @@
 }
 
 .about-page-stat-number {
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.25rem);
   font-weight: 700;
   color: #dc2626;
-  line-height: 1;
+  line-height: 1.1;
   margin-bottom: 0.5rem;
 }
 
+.about-page-stat-card {
+  min-width: 0;
+}
+
 .about-page-stat-label {
+  overflow-wrap: anywhere;
   color: #4b5563;
   font-size: 0.875rem;
   font-weight: 500;
 }
 
 .about-page-recognition {
-  padding: 2rem;
+  padding: var(--space-card);
   background: white;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .about-page-recognition h2 {
-  font-size: 1.5rem;
+  font-size: var(--fs-h2);
   font-weight: 700;
   color: #111827;
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
 }
 
 .about-page-awards {
   display: grid;
-  gap: 2rem;
+  gap: 1.25rem;
 }
 
 .about-page-award-item {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 1.5rem;
-  padding-bottom: 2rem;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -136,13 +141,13 @@
 }
 
 .about-page-award-year {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #dc2626;
 }
 
 .about-page-award-details h3 {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #111827;
   margin-bottom: 0.5rem;
@@ -154,42 +159,23 @@
 }
 
 @media (max-width: 768px) {
-  .about-page-container {
-    padding: 0 1rem;
-  }
-
   .about-page-hero {
-    padding: 2rem 1rem;
-  }
-
-  .about-page-content {
-    gap: 2rem;
-  }
-
-  .about-page-bio,
-  .about-page-recognition {
-    padding: 1.5rem;
-  }
-
-  .about-page-bio-text {
-    font-size: 1rem;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .about-page-award-item {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.375rem;
   }
 
+  .about-page-stat-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
   .about-page-stats {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-  }
-
-  .about-page-stat-card {
-    padding: 1.5rem;
-  }
-
-  .about-page-stat-number {
-    font-size: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

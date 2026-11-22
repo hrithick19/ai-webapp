@@ -1,5 +1,5 @@
 .home-container {
-  padding: 2rem;
+  padding: 1rem var(--page-gutter) 1.5rem;
   max-width: var(--content-max-width);
   margin: 0 auto;
 }
@@ -7,18 +7,18 @@
 /* Featured Section */
 .featured-section,
 .books-section {
-  padding: 4rem 0;
-  margin-top: 1rem;
+  padding: var(--space-section) 0;
+  margin-top: 0;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: clamp(1.5rem, 5vw, 2.5rem);
 }
 
 .section-label {
   color: #dc2626;
-  font-size: 0.95rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -33,15 +33,16 @@
 }
 
 .section-header h2 {
-  font-size: 2.4rem;
+  font-size: var(--fs-h2);
   font-weight: 700;
-  margin-bottom: 1rem;
+  line-height: 1.3;
+  margin-bottom: 0.625rem;
   color: #1a202c;
 }
 
 .section-header p {
   color: #4a4a4a;
-  font-size: 1.1rem;
+  font-size: var(--fs-lead);
   max-width: 540px;
   margin: 0 auto;
   line-height: 1.6;
@@ -50,14 +51,14 @@
 /* Featured Grid */
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  padding: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+  padding: 0.25rem;
 }
 
 .featured-card {
   background: white;
-  padding: 2rem;
+  padding: var(--space-card);
   border-radius: 12px;
   border: 1px solid rgba(220, 38, 38, 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -74,13 +75,13 @@
 
 .category-tag {
   display: inline-block;
-  padding: 0.4rem 1rem;
+  padding: 0.3rem 0.75rem;
   background: rgba(220, 38, 38, 0.08);
   color: #dc2626;
   border-radius: 6px;
-  font-size: 0.85rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   transition: all 0.2s ease;
 }
 
@@ -90,27 +91,28 @@
 }
 
 .featured-card h3 {
-  font-size: 1.4rem;
+  font-size: var(--fs-h3);
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.625rem;
   color: #1a202c;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .featured-card p {
   color: #4a4a4a;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   line-height: 1.6;
-  font-size: 1rem;
+  font-size: 0.9375rem;
 }
 
 .card-meta {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
   color: #666666;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .meta-divider {
@@ -145,9 +147,9 @@
 /* Books Section - Reduced Height */
 .books-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-  padding: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: clamp(0.875rem, 3vw, 1.25rem);
+  padding: 0.25rem;
 }
 
 .book-card {
@@ -214,56 +216,34 @@
 }
 
 @media (max-width: 768px) {
-  .home-container {
-    padding: 1rem;
-  }
-
-  .featured-section,
-  .books-section {
-    padding: 3rem 0;
-  }
-
-  .section-header {
-    margin-bottom: 2.5rem;
-  }
-
-  .section-header h2 {
-    font-size: 2rem;
-  }
-
-  .featured-grid,
-  .books-grid {
+  .featured-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
   }
 
-  .featured-card,
-  .book-card {
-    padding: 1.5rem;
-  }
-
-  .featured-card h3 {
-    font-size: 1.3rem;
-  }
-
-  .books-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+  .featured-card:hover,
+  .book-card:hover {
+    transform: none;
   }
 
   .book-card {
-    max-width: 280px;
+    max-width: none;
   }
 
   .book-info {
-    padding: 1rem;
+    padding: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .books-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 .featured-loading,
 .featured-error {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 2.5rem 1.25rem;
   background: white;
   border-radius: 1rem;
   border: 1px solid rgba(220, 38, 38, 0.1);
