@@ -1,0 +1,7 @@
+# This Vercel project serves the React frontend; Django is deployed separately on Koyeb.
+backend/
+requirements.txt
+runtime.txt
+Procfile
+build.sh
+test_build.sh

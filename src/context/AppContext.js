@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useCallback } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 
 const AppContext = createContext();
 
