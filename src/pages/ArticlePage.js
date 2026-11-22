@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { workApi } from '../services/api';
 import { formatCategory, formatDate } from '../utils/formatters';
+import { SITE_NAME, SITE_URL } from '../config/seo';
 import './ArticlePage.css';
 
 function ArticlePage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [work, setWork] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,9 +22,16 @@ function ArticlePage() {
   useEffect(() => {
     const fetchWork = async () => {
       try {
-        const response = await workApi.getById(id);
+        const isLegacyId = /^\d+$/.test(id);
+        const response = isLegacyId
+          ? await workApi.getById(id)
+          : await workApi.getBySlug(id);
         setWork(response.data);
         setLoading(false);
+
+        if (isLegacyId && response.data.slug) {
+          navigate(`/works/${encodeURIComponent(response.data.slug)}`, { replace: true });
+        }
       } catch (err) {
         console.error('Error fetching work:', err);
         setError('Failed to load the content');
@@ -31,7 +40,7 @@ function ArticlePage() {
     };
 
     fetchWork();
-  }, [id]);
+  }, [id, navigate]);
 
   const handleImageLoad = (event) => {
     const { naturalWidth, naturalHeight } = event.target;
@@ -43,8 +52,7 @@ function ArticlePage() {
     return (
       <>
         <Helmet>
-          <title>Loading... | Your Site Name</title>
-          <meta name="robots" content="noindex" />
+          <title>Loading | {SITE_NAME}</title>
         </Helmet>
         <div className="article-page-loading-container">
           <div className="article-page-loading-spinner"></div>
@@ -58,7 +66,7 @@ function ArticlePage() {
     return (
       <>
         <Helmet>
-          <title>Error | Your Site Name</title>
+          <title>Error | {SITE_NAME}</title>
           <meta name="robots" content="noindex" />
         </Helmet>
         <div className="article-page-error-container">
@@ -73,7 +81,7 @@ function ArticlePage() {
   if (!work) return (
     <>
       <Helmet>
-        <title>Content Not Found | Your Site Name</title>
+        <title>Content Not Found | {SITE_NAME}</title>
         <meta name="robots" content="noindex" />
       </Helmet>
       <div className="article-page-error-container">Content not found</div>
@@ -84,30 +92,36 @@ function ArticlePage() {
     ? imageDimensions.width / imageDimensions.height 
     : null;
 
-  // Create clean excerpt for meta description
-  const metaDescription = work.excerpt?.slice(0, 155) || work.title;
-  const canonicalUrl = `${window.location.origin}/works/${id}`;
+  const descriptionSource = work.meta_description?.trim() || work.excerpt?.trim() || work.title;
+  const metaDescription = descriptionSource.length > 155
+    ? `${descriptionSource.slice(0, 154).trimEnd()}…`
+    : descriptionSource;
+  const canonicalUrl = `${SITE_URL}/works/${encodeURIComponent(work.slug || id)}`;
   const featuredImageUrl = work.featured_image
-    ? new URL(work.featured_image, window.location.origin).toString()
+    ? new URL(work.featured_image, SITE_URL).toString()
     : undefined;
   const articleStructuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": work.title,
+    "url": canonicalUrl,
     "description": metaDescription,
     "image": featuredImageUrl,
     "datePublished": work.publication_date,
     "dateModified": work.updated_at,
-    "author": {
-      "@type": "Person",
-      "name": "Your Name"
-    }
+    "inLanguage": work.language || 'ta',
+    ...(work.author_name ? {
+      "author": {
+        "@type": "Person",
+        "name": work.author_name
+      }
+    } : {})
   };
 
   return (
     <>
-      <Helmet>
-        <title>{`${work.title} | Your Site Name`}</title>
+      <Helmet htmlAttributes={{ lang: work.language || 'ta' }}>
+        <title>{`${work.title} | ${SITE_NAME}`}</title>
         <meta name="description" content={metaDescription} />
         <meta property="og:title" content={work.title} />
         <meta property="og:description" content={metaDescription} />
@@ -115,7 +129,11 @@ function ArticlePage() {
           <meta property="og:image" content={featuredImageUrl} />
         )}
         <meta property="og:type" content="article" />
+        <meta property="og:site_name" content={SITE_NAME} />
         <meta property="og:url" content={canonicalUrl} />
+        {work.author_name && (
+          <meta property="article:author" content={work.author_name} />
+        )}
         <link rel="canonical" href={canonicalUrl} />
         
         {/* Twitter Card tags */}

@@ -13,6 +13,7 @@ const apiClient = axios.create({
 export const workApi = {
     getAll: () => apiClient.get('/works/'),
     getById: (id) => apiClient.get(`/works/${id}/`),
+    getBySlug: (slug) => apiClient.get(`/works/by-slug/${encodeURIComponent(slug)}/`),
     create: (data) => apiClient.post('/works/', data),
     update: (id, data) => apiClient.put(`/works/${id}/`, data),
     delete: (id) => apiClient.delete(`/works/${id}/`),

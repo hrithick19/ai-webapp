@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { contactApi } from '../services/api';
+import { SITE_URL } from '../config/seo';
 import './Contact.css';
 
 function Contact() {
@@ -39,6 +40,7 @@ function Contact() {
       <Helmet>
         <title>Contact | Aharathi</title>
         <meta name="description" content="Get in touch for literary events, book signings, or general inquiries." />
+        <link rel="canonical" href={`${SITE_URL}/contact`} />
       </Helmet>
 
       <div className="contact-container">

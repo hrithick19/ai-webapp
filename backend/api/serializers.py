@@ -35,9 +35,13 @@ class WorkSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'title',
+            'slug',
+            'author_name',
+            'language',
             'subtitle',
             'description',
             'excerpt',
+            'meta_description',
             'category',
             'featured_image',
             'reading_time',
@@ -46,4 +50,4 @@ class WorkSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at'
         ]
-        read_only_fields = ['created_at', 'updated_at'] 
+        read_only_fields = ['slug', 'created_at', 'updated_at'] 

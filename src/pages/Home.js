@@ -1,10 +1,11 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { homeApi } from '../services/api';
 import { formatDate } from '../utils/formatters';
+import { SITE_NAME, SITE_URL } from '../config/seo';
 import Hero from '../components/home/Hero';
 import './Home.css';
 
@@ -42,24 +43,18 @@ function Home() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Aharathi",
-    "url": "https://aharathi.com",
-    "description": t('home.description'),
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://aharathi.in?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "name": SITE_NAME,
+    "url": `${SITE_URL}/`,
+    "description": t('home.description')
   };
 
   return (
     <div className="home-container">
       <Helmet>
-        <title>அகராதி | Aharathi</title>
+        <title>{t('siteName')}</title>
         <meta name="description" content={t('home.description')} />
-        <meta name="keywords" content="Aharathi, அகராதி, Tamil literature, featured works, latest books" />
-        <meta name="author" content="Aharathi, அகராதி" />
-        <link rel="canonical" href="https://aharathi.in/" />
+        <meta name="author" content={SITE_NAME} />
+        <link rel="canonical" href={`${SITE_URL}/`} />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
@@ -114,7 +109,7 @@ function Home() {
                   <span className="meta-divider">•</span>
                   <span>{work.reading_time} {t('common.minuteRead')}</span>
                 </div>
-                <a href={`/works/${work.id}`} className="read-more">
+                <a href={`/works/${encodeURIComponent(work.slug || work.id)}`} className="read-more">
                   {t('home.featured.readMore')} <span>→</span>
                 </a>
               </motion.article>

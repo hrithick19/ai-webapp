@@ -20,6 +20,7 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+SITE_URL = os.environ.get('SITE_URL', 'https://aharathi.in').strip().rstrip('/') or 'https://aharathi.in'
 
 # Load local development variables; deployed environment variables take precedence.
 load_dotenv(BASE_DIR.parent / '.env')

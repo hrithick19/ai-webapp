@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { workApi } from '../services/api';
 import { getCategoryIcon } from '../utils/categoryIcons';
 import { formatDate } from '../utils/formatters';
+import { SITE_URL } from '../config/seo';
 import { useLanguage } from '../contexts/LanguageContext';
 import './Works.css';
 
@@ -76,6 +77,7 @@ function Works() {
       <Helmet>
         <title>{t('works.pageTitle')} | {t('siteName')}</title>
         <meta name="description" content={t('works.pageDescription')} />
+        <link rel="canonical" href={`${SITE_URL}/works`} />
       </Helmet>
 
       <div className="works-page">
@@ -116,7 +118,7 @@ function Works() {
                 )}
                 <p className="works-featured-excerpt" dangerouslySetInnerHTML={{ __html: featuredWork.excerpt }} />
                 <Link 
-                  to={`/works/${featuredWork.id}`}
+                  to={`/works/${encodeURIComponent(featuredWork.slug || featuredWork.id)}`}
                   className="works-featured-link"
                 >
                   {t('works.readFullArticle')}
@@ -181,7 +183,7 @@ function Works() {
             <div className="works-grid">
               {filteredWorks.map((work) => (
                 <article key={work.id} className="works-card">
-                  <Link to={`/works/${work.id}`} className="works-card-link">
+                  <Link to={`/works/${encodeURIComponent(work.slug || work.id)}`} className="works-card-link">
                     <div className="works-card-image">
                       {work.featured_image ? (
                         <img src={work.featured_image} alt={work.title} loading="lazy" />

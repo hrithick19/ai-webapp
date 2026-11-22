@@ -8,9 +8,10 @@ class BookStoreLinkInline(admin.TabularInline):
 
 @admin.register(Work)
 class WorkAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'publication_date', 'is_featured']
-    list_filter = ['category', 'is_featured']
-    search_fields = ['title', 'description']
+    list_display = ['title', 'slug', 'category', 'language', 'author_name', 'publication_date', 'is_published', 'is_featured']
+    list_filter = ['category', 'language', 'is_published', 'is_featured']
+    search_fields = ['title', 'slug', 'author_name', 'description', 'meta_description']
+    readonly_fields = ['slug']
 
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):

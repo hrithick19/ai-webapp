@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { bookApi } from '../services/api';
 import { useLanguage } from '../contexts/LanguageContext';
+import { SITE_URL } from '../config/seo';
 import './Books.css';
 
 function Books() {
@@ -58,6 +59,7 @@ function Books() {
       <Helmet>
         <title>{t('books.pageTitle')} | {t('siteName')}</title>
         <meta name="description" content={t('books.pageDescription')} />
+        <link rel="canonical" href={`${SITE_URL}/books`} />
       </Helmet>
 
       <div className="books-page-container">

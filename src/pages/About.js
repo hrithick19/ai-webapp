@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../contexts/LanguageContext';
+import { SITE_URL } from '../config/seo';
 import { motion } from 'framer-motion';
 import './About.css';
 
@@ -12,6 +13,7 @@ function About() {
       <Helmet>
         <title>{t('about.pageTitle')} | {t('siteName')}</title>
         <meta name="description" content={t('about.pageDescription')} />
+        <link rel="canonical" href={`${SITE_URL}/about`} />
       </Helmet>
 
       <div className="about-page-container">
