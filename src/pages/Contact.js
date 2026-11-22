@@ -166,10 +166,10 @@ function Contact() {
             <div className="social-links">
               <h3>Follow Me</h3>
               <div className="social-grid">
-                <a href="#" className="social-link">Goodreads</a>
-                <a href="#" className="social-link">Twitter</a>
-                <a href="#" className="social-link">Instagram</a>
-                <a href="#" className="social-link">Facebook</a>
+                <span className="social-link">Goodreads</span>
+                <span className="social-link">Twitter</span>
+                <span className="social-link">Instagram</span>
+                <span className="social-link">Facebook</span>
               </div>
             </div>
           </div>

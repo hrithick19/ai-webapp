@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { workApi } from '../services/api';
 import { getCategoryIcon } from '../utils/categoryIcons';
-import { formatCategory, formatDate } from '../utils/formatters';
+import { formatDate } from '../utils/formatters';
 import { useLanguage } from '../contexts/LanguageContext';
 import './Works.css';
 

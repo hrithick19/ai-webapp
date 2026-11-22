@@ -87,12 +87,15 @@ function ArticlePage() {
   // Create clean excerpt for meta description
   const metaDescription = work.excerpt?.slice(0, 155) || work.title;
   const canonicalUrl = `${window.location.origin}/works/${id}`;
+  const featuredImageUrl = work.featured_image
+    ? new URL(work.featured_image, window.location.origin).toString()
+    : undefined;
   const articleStructuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": work.title,
     "description": metaDescription,
-    "image": work.featured_image ? `${window.location.origin}${work.featured_image}` : undefined,
+    "image": featuredImageUrl,
     "datePublished": work.publication_date,
     "dateModified": work.updated_at,
     "author": {
@@ -109,7 +112,7 @@ function ArticlePage() {
         <meta property="og:title" content={work.title} />
         <meta property="og:description" content={metaDescription} />
         {work.featured_image && (
-          <meta property="og:image" content={`${window.location.origin}${work.featured_image}`} />
+          <meta property="og:image" content={featuredImageUrl} />
         )}
         <meta property="og:type" content="article" />
         <meta property="og:url" content={canonicalUrl} />
@@ -120,7 +123,7 @@ function ArticlePage() {
         <meta name="twitter:title" content={work.title} />
         <meta name="twitter:description" content={metaDescription} />
         {work.featured_image && (
-          <meta name="twitter:image" content={`${window.location.origin}${work.featured_image}`} />
+          <meta name="twitter:image" content={featuredImageUrl} />
         )}
 
         {/* Article specific meta tags */}
